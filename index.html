@@ -8,658 +8,188 @@
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
 
   :root {
-    --bg: #0a0e0a;
-    --bg2: #0f150f;
-    --panel: #111811;
-    --border: #1e3a1e;
-    --green: #00ff41;
-    --green2: #00cc33;
-    --green3: #004d14;
-    --amber: #ffb000;
-    --red: #ff3333;
-    --dim: #336633;
-    --text: #c8f0c8;
-    --textdim: #4a7a4a;
-    --sent: #003300;
-    --recv: #001a2e;
+    --bg: #0a0e0a; --bg2: #0f150f; --panel: #111811;
+    --border: #1e3a1e; --green: #00ff41; --green3: #004d14;
+    --amber: #ffb000; --red: #ff3333; --dim: #336633;
+    --text: #c8f0c8; --textdim: #4a7a4a; --sent: #003300; --recv: #001a2e;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg); color: var(--text);
     font-family: 'Share Tech Mono', monospace;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
+    min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
   }
 
   body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,255,65,0.015) 2px,
-      rgba(0,255,65,0.015) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
+    content: ''; position: fixed; top:0;left:0;right:0;bottom:0;
+    background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,65,0.015) 2px,rgba(0,255,65,0.015) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+
+  /* tweetalige subtitel stijl */
+  .sub {
+    display: block;
+    color: var(--amber);
+    font-style: italic;
+    font-size: 0.82em;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    margin-top: 1px;
   }
 
   header {
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: var(--bg2); border-bottom: 1px solid var(--border);
+    padding: 12px 16px; display: flex; align-items: center;
+    justify-content: space-between; position: sticky; top: 0; z-index: 100;
   }
 
-  .logo {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: 1.1rem;
-    color: var(--green);
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(0,255,65,0.5);
-  }
-
+  .logo { font-family: 'Orbitron',monospace; font-weight:900; font-size:1.1rem;
+    color:var(--green); letter-spacing:2px; text-shadow:0 0 10px rgba(0,255,65,0.5); }
   .logo span { color: var(--amber); }
 
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
-    animation: pulse 2s infinite;
+  .header-center {
+    font-size: 0.6rem; color: var(--textdim); letter-spacing: 1px;
+    text-align: center; line-height: 1.8;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  /* Lang toggle */
-  .lang-toggle {
-    display: flex;
-    gap: 4px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 3px;
-  }
-
-  .lang-btn {
-    padding: 3px 8px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    background: transparent;
-    color: var(--dim);
-    transition: all 0.2s;
-  }
-
-  .lang-btn.active {
-    background: var(--green3);
-    color: var(--green);
-    box-shadow: 0 0 6px rgba(0,255,65,0.3);
-  }
-
-  /* Tweetalige labels */
-  .bilingual {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.3;
-  }
-
-  .bilingual .nl {
-    color: var(--text);
-    font-size: 0.85em;
-  }
-
-  .bilingual .it {
-    color: var(--amber);
-    font-size: 0.72em;
-    opacity: 0.85;
-    font-style: italic;
-  }
-
-  /* Tabs */
-  .tabs {
-    display: flex;
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .tab {
-    flex: 1;
-    padding: 10px 6px;
-    text-align: center;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 1px;
-    color: var(--dim);
-    cursor: pointer;
-    border: none;
-    background: none;
-    transition: all 0.2s;
-    border-bottom: 2px solid transparent;
-    line-height: 1.4;
-  }
-
-  .tab.active {
-    color: var(--green);
-    border-bottom-color: var(--green);
-    text-shadow: 0 0 8px rgba(0,255,65,0.4);
-  }
-
-  .tab-icon { font-size: 1.1rem; display: block; margin-bottom: 3px; }
-  .tab-it { display: block; color: var(--amber); font-size: 0.55rem; opacity: 0.8; margin-top: 1px; font-style: italic; }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    gap: 16px;
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px;
-  }
-
-  .panel-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.62rem;
-    color: var(--textdim);
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-
-  .panel-title .it-sub {
-    display: block;
-    color: var(--amber);
-    font-size: 0.55rem;
-    opacity: 0.75;
-    font-style: italic;
-    letter-spacing: 1px;
-    margin-top: 2px;
-    font-family: 'Share Tech Mono', monospace;
-    text-transform: none;
-  }
-
-  textarea {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--green);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1rem;
-    padding: 12px;
-    border-radius: 4px;
-    resize: none;
-    height: 100px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  textarea:focus {
-    border-color: var(--green);
-    box-shadow: 0 0 8px rgba(0,255,65,0.2);
-  }
-
-  textarea::placeholder { color: var(--dim); }
-
-  .morse-preview {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 10px 12px;
-    font-size: 1.1rem;
-    color: var(--amber);
-    letter-spacing: 3px;
-    min-height: 40px;
-    word-break: break-all;
-    line-height: 1.8;
-  }
-
-  .speed-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .speed-label {
-    font-size: 0.7rem;
-    color: var(--textdim);
-    white-space: nowrap;
-    min-width: 56px;
-    line-height: 1.4;
-  }
-
-  .speed-label .it { color: var(--amber); font-size: 0.62em; opacity: 0.8; display: block; }
-
-  input[type=range] {
-    flex: 1;
-    -webkit-appearance: none;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    outline: none;
-  }
-
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px rgba(0,255,65,0.5);
-    cursor: pointer;
-  }
-
-  .speed-val {
-    font-size: 0.7rem;
-    color: var(--green);
-    min-width: 56px;
-    text-align: right;
-    line-height: 1.4;
-  }
-
-  .speed-val .it { color: var(--amber); font-size: 0.85em; display: block; opacity: 0.85; }
-
-  .mode-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .mode-btn {
-    flex: 1;
-    padding: 10px 6px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--textdim);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.78rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  .mode-btn.active {
-    border-color: var(--green);
-    color: var(--green);
-    background: var(--green3);
-    box-shadow: 0 0 8px rgba(0,255,65,0.2);
-  }
-
-  .mode-btn span { display: block; font-size: 1.2rem; margin-bottom: 3px; }
-  .mode-btn .it { display: block; color: var(--amber); font-size: 0.68em; opacity: 0.8; font-style: italic; }
-
-  .btn-primary {
-    width: 100%;
-    padding: 16px;
-    background: var(--green3);
-    border: 1px solid var(--green);
-    border-radius: 4px;
-    color: var(--green);
-    font-family: 'Orbitron', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-shadow: 0 0 8px rgba(0,255,65,0.4);
-    line-height: 1.6;
-  }
-
-  .btn-primary:hover, .btn-primary:active {
-    background: #005500;
-    box-shadow: 0 0 16px rgba(0,255,65,0.3);
-  }
-
-  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .btn-primary .it {
-    display: block;
-    font-size: 0.72em;
-    color: var(--amber);
-    opacity: 0.85;
-    font-style: italic;
-    letter-spacing: 1px;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: 400;
-  }
-
-  .btn-danger {
-    width: 100%;
-    padding: 14px;
-    background: #2a0000;
-    border: 1px solid var(--red);
-    border-radius: 4px;
-    color: var(--red);
-    font-family: 'Orbitron', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-    line-height: 1.6;
-  }
-
-  .btn-danger:active { background: #440000; }
-
-  .btn-danger .it {
-    display: block;
-    font-size: 0.72em;
-    opacity: 0.8;
-    font-style: italic;
-    letter-spacing: 1px;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: 400;
-  }
-
-  .btn-secondary {
-    width: 100%;
-    padding: 12px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--textdim);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    line-height: 1.6;
-  }
-
-  .btn-secondary:active { border-color: var(--green); color: var(--green); }
-  .btn-secondary .it { display: block; font-size: 0.8em; color: var(--amber); opacity: 0.75; font-style: italic; }
-
-  #flash-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 9998;
-    transition: opacity 0.05s;
-  }
-
-  #flash-overlay.on { opacity: 1; }
-
-  .recv-display {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 12px;
-    min-height: 60px;
-    margin-bottom: 12px;
-  }
-
-  .recv-morse {
-    font-size: 1.2rem;
-    color: var(--amber);
-    letter-spacing: 3px;
-    word-break: break-all;
-    margin-bottom: 8px;
-    min-height: 24px;
-  }
-
-  .recv-text {
-    font-size: 1.1rem;
-    color: var(--green);
-    min-height: 24px;
-  }
-
-  .meter-bar {
-    width: 100%;
-    height: 8px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-
-  .meter-fill {
-    height: 100%;
-    background: var(--green);
-    width: 0%;
-    transition: width 0.05s;
-    box-shadow: 0 0 6px var(--green);
-  }
-
-  .meter-fill.active { background: var(--amber); }
-
-  .log-container {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .log-header {
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .log-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.62rem;
-    color: var(--textdim);
-    letter-spacing: 2px;
-    line-height: 1.5;
-  }
-
-  .log-title .it { display: block; color: var(--amber); font-size: 0.85em; opacity: 0.75; font-style: italic; letter-spacing: 1px; font-family: 'Share Tech Mono', monospace; }
-
-  .log-clear {
-    font-size: 0.68rem;
-    color: var(--textdim);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: 'Share Tech Mono', monospace;
-    padding: 2px 8px;
-    line-height: 1.5;
-    text-align: right;
-  }
-
-  .log-clear:active { color: var(--red); }
-  .log-clear .it { display: block; font-size: 0.85em; color: var(--amber); opacity: 0.7; font-style: italic; }
-
-  .log-messages {
-    max-height: 280px;
-    overflow-y: auto;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .log-empty {
-    text-align: center;
-    color: var(--textdim);
-    font-size: 0.78rem;
-    padding: 20px;
-    line-height: 2;
-  }
-
-  .log-empty .it { color: var(--amber); opacity: 0.75; font-style: italic; }
-
-  .msg {
-    max-width: 85%;
-    padding: 10px 12px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-
-  .msg.sent {
-    background: var(--sent);
-    border: 1px solid #005500;
-    align-self: flex-end;
-    border-bottom-right-radius: 1px;
-  }
-
-  .msg.recv {
-    background: var(--recv);
-    border: 1px solid #003366;
-    align-self: flex-start;
-    border-bottom-left-radius: 1px;
-  }
-
-  .msg-meta { font-size: 0.65rem; color: var(--textdim); margin-bottom: 4px; }
-  .msg.sent .msg-meta { text-align: right; color: #006600; }
-  .msg.recv .msg-meta { color: #004488; }
-  .msg-text { color: var(--text); }
-  .msg.sent .msg-text { color: #80ff80; }
-  .msg.recv .msg-text { color: #80c0ff; }
-
-  .msg-morse {
-    font-size: 0.7rem;
-    color: var(--amber);
-    opacity: 0.6;
-    margin-top: 4px;
-    letter-spacing: 1px;
-    word-break: break-all;
-  }
-
-  .tab-content { display: none; }
-  .tab-content.active { display: flex; flex-direction: column; gap: 16px; }
-
-  @keyframes flash-green {
-    0% { background: #007700; }
-    100% { background: var(--green3); }
-  }
-
-  .progress-bar {
-    width: 100%;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-top: 8px;
-    display: none;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--green);
-    width: 0%;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 6px var(--green);
-  }
-
-  .current-char {
-    font-size: 0.73rem;
-    color: var(--textdim);
-    margin-top: 6px;
-    min-height: 18px;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  .sos-btn {
-    width: 100%;
-    padding: 18px;
-    background: #2a0000;
-    border: 2px solid var(--red);
-    border-radius: 4px;
-    color: var(--red);
-    font-family: 'Orbitron', monospace;
-    font-size: 1.1rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    cursor: pointer;
-    text-shadow: 0 0 10px rgba(255,51,51,0.5);
-    animation: sos-pulse 2s infinite;
-    line-height: 1.6;
-  }
-
-  .sos-btn .it {
-    display: block;
-    font-size: 0.6em;
-    color: #ff8888;
-    font-style: italic;
-    letter-spacing: 1px;
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: 400;
-    margin-top: 4px;
-  }
-
-  @keyframes sos-pulse {
-    0%, 100% { box-shadow: 0 0 8px rgba(255,51,51,0.3); }
-    50% { box-shadow: 0 0 20px rgba(255,51,51,0.6); }
-  }
-
-  .thresh-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.73rem;
-    color: var(--textdim);
-    line-height: 1.5;
-  }
-
-  .thresh-row .it { color: var(--amber); font-size: 0.85em; font-style: italic; display: block; }
-
-  .morse-ref {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-    font-size: 0.7rem;
-  }
-
-  .ref-item {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 4px 6px;
-    border-radius: 3px;
-    display: flex;
-    justify-content: space-between;
-    gap: 4px;
-  }
-
-  .ref-char { color: var(--green); font-weight: bold; }
-  .ref-code { color: var(--amber); letter-spacing: 1px; }
+  .status-dot { width:8px;height:8px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 6px var(--green);animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+  .tabs { display:flex;background:var(--bg2);border-bottom:1px solid var(--border); }
+  .tab { flex:1;padding:10px 4px;text-align:center;font-family:'Orbitron',monospace;
+    font-size:0.58rem;letter-spacing:1px;color:var(--dim);cursor:pointer;border:none;
+    background:none;transition:all 0.2s;border-bottom:2px solid transparent;line-height:1.7; }
+  .tab.active { color:var(--green);border-bottom-color:var(--green);text-shadow:0 0 8px rgba(0,255,65,0.4); }
+  .tab-icon { font-size:1.1rem;display:block;margin-bottom:2px; }
+  .tab .sub { font-size:0.75em; margin-top:0; }
+
+  main { flex:1;display:flex;flex-direction:column;padding:16px;gap:16px;max-width:600px;width:100%;margin:0 auto; }
+
+  .panel { background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:16px; }
+
+  .panel-title { font-family:'Orbitron',monospace;font-size:0.62rem;color:var(--textdim);
+    letter-spacing:2px;margin-bottom:12px;text-transform:uppercase;line-height:1.8; }
+  .panel-title .sub { font-family:'Share Tech Mono',monospace; text-transform:none; letter-spacing:1px; }
+
+  textarea { width:100%;background:var(--bg);border:1px solid var(--border);color:var(--green);
+    font-family:'Share Tech Mono',monospace;font-size:1rem;padding:12px;border-radius:4px;
+    resize:none;height:100px;outline:none;transition:border-color 0.2s; }
+  textarea:focus { border-color:var(--green);box-shadow:0 0 8px rgba(0,255,65,0.2); }
+  textarea::placeholder { color:var(--dim); }
+
+  .morse-preview { background:var(--bg);border:1px solid var(--border);border-radius:4px;
+    padding:10px 12px;font-size:1.1rem;color:var(--amber);letter-spacing:3px;
+    min-height:40px;word-break:break-all;line-height:1.8; }
+
+  .speed-row { display:flex;align-items:center;gap:12px;margin-bottom:12px; }
+  .speed-label { font-size:0.7rem;color:var(--textdim);white-space:nowrap;min-width:60px;line-height:1.7; }
+  .speed-label .sub { font-size:0.85em; }
+
+  input[type=range] { flex:1;-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+    background:var(--green);box-shadow:0 0 6px rgba(0,255,65,0.5);cursor:pointer; }
+
+  .speed-val { font-size:0.7rem;color:var(--green);min-width:72px;text-align:right;line-height:1.7; }
+  .speed-val .sub { color:var(--amber); }
+
+  .mode-row { display:flex;gap:8px;margin-bottom:12px; }
+  .mode-btn { flex:1;padding:10px 6px;background:var(--bg);border:1px solid var(--border);border-radius:4px;
+    color:var(--textdim);font-family:'Share Tech Mono',monospace;font-size:0.78rem;cursor:pointer;
+    transition:all 0.2s;text-align:center;line-height:1.7; }
+  .mode-btn.active { border-color:var(--green);color:var(--green);background:var(--green3);box-shadow:0 0 8px rgba(0,255,65,0.2); }
+  .mode-btn .icon { display:block;font-size:1.2rem;margin-bottom:3px; }
+  .mode-btn .sub { font-size:0.78em; }
+
+  .btn-primary { width:100%;padding:15px;background:var(--green3);border:1px solid var(--green);
+    border-radius:4px;color:var(--green);font-family:'Orbitron',monospace;font-size:0.82rem;
+    font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.2s;
+    text-shadow:0 0 8px rgba(0,255,65,0.4);line-height:1.8; }
+  .btn-primary:active { background:#005500;box-shadow:0 0 16px rgba(0,255,65,0.3); }
+  .btn-primary .sub { font-family:'Share Tech Mono',monospace;font-weight:400;font-size:0.78em;letter-spacing:1px; }
+
+  .btn-danger { width:100%;padding:14px;background:#2a0000;border:1px solid var(--red);
+    border-radius:4px;color:var(--red);font-family:'Orbitron',monospace;font-size:0.82rem;
+    font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.2s;line-height:1.8; }
+  .btn-danger:active { background:#440000; }
+  .btn-danger .sub { font-family:'Share Tech Mono',monospace;font-weight:400;font-size:0.78em;letter-spacing:1px; }
+
+  .btn-secondary { width:100%;padding:12px;background:transparent;border:1px solid var(--border);
+    border-radius:4px;color:var(--textdim);font-family:'Share Tech Mono',monospace;
+    font-size:0.82rem;cursor:pointer;transition:all 0.2s;line-height:1.7; }
+  .btn-secondary:active { border-color:var(--green);color:var(--green); }
+  .btn-secondary .sub { font-size:0.85em; }
+
+  #flash-overlay { position:fixed;top:0;left:0;right:0;bottom:0;background:white;
+    opacity:0;pointer-events:none;z-index:9998;transition:opacity 0.05s; }
+  #flash-overlay.on { opacity:1; }
+
+  .recv-display { background:var(--bg);border:1px solid var(--border);border-radius:4px;
+    padding:12px;min-height:60px;margin-bottom:12px; }
+  .recv-morse { font-size:1.2rem;color:var(--amber);letter-spacing:3px;word-break:break-all;margin-bottom:8px;min-height:24px; }
+  .recv-text { font-size:1.1rem;color:var(--green);min-height:24px; }
+
+  .meter-bar { width:100%;height:8px;background:var(--bg);border:1px solid var(--border);
+    border-radius:4px;overflow:hidden;margin-bottom:12px; }
+  .meter-fill { height:100%;background:var(--green);width:0%;transition:width 0.05s;box-shadow:0 0 6px var(--green); }
+  .meter-fill.active { background:var(--amber); }
+
+  .log-container { background:var(--panel);border:1px solid var(--border);border-radius:4px;overflow:hidden; }
+  .log-header { padding:10px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center; }
+  .log-title { font-family:'Orbitron',monospace;font-size:0.6rem;color:var(--textdim);letter-spacing:2px;line-height:1.8; }
+  .log-title .sub { font-family:'Share Tech Mono',monospace;letter-spacing:1px; }
+  .log-clear { font-size:0.68rem;color:var(--textdim);background:none;border:none;cursor:pointer;
+    font-family:'Share Tech Mono',monospace;padding:2px 8px;line-height:1.8;text-align:right; }
+  .log-clear:active { color:var(--red); }
+  .log-clear .sub { font-size:0.9em; }
+  .log-messages { max-height:280px;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:8px; }
+  .log-empty { text-align:center;color:var(--textdim);font-size:0.78rem;padding:20px;line-height:2.4; }
+  .log-empty .sub { display:block;font-size:1em;margin-top:0; }
+
+  .msg { max-width:85%;padding:10px 12px;border-radius:4px;font-size:0.85rem;line-height:1.5; }
+  .msg.sent { background:var(--sent);border:1px solid #005500;align-self:flex-end;border-bottom-right-radius:1px; }
+  .msg.recv { background:var(--recv);border:1px solid #003366;align-self:flex-start;border-bottom-left-radius:1px; }
+  .msg-meta { font-size:0.65rem;color:var(--textdim);margin-bottom:4px; }
+  .msg.sent .msg-meta { text-align:right;color:#006600; }
+  .msg.recv .msg-meta { color:#004488; }
+  .msg.sent .msg-text { color:#80ff80; }
+  .msg.recv .msg-text { color:#80c0ff; }
+  .msg-morse { font-size:0.7rem;color:var(--amber);opacity:0.6;margin-top:4px;letter-spacing:1px;word-break:break-all; }
+
+  .tab-content { display:none; }
+  .tab-content.active { display:flex;flex-direction:column;gap:16px; }
+
+  .progress-bar { width:100%;height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:8px;display:none; }
+  .progress-fill { height:100%;background:var(--green);width:0%;transition:width 0.1s linear;box-shadow:0 0 6px var(--green); }
+  .current-char { font-size:0.73rem;color:var(--textdim);margin-top:6px;min-height:18px;text-align:center; }
+
+  .sos-btn { width:100%;padding:18px;background:#2a0000;border:2px solid var(--red);border-radius:4px;
+    color:var(--red);font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:900;letter-spacing:4px;
+    cursor:pointer;text-shadow:0 0 10px rgba(255,51,51,0.5);animation:sos-pulse 2s infinite;line-height:1.8; }
+  .sos-btn .sub { font-family:'Share Tech Mono',monospace;font-weight:400;font-size:0.55em;
+    color:#ff8888;letter-spacing:1px; }
+  @keyframes sos-pulse { 0%,100%{box-shadow:0 0 8px rgba(255,51,51,0.3)}50%{box-shadow:0 0 20px rgba(255,51,51,0.6)} }
+
+  .thresh-row { display:flex;align-items:center;gap:10px;font-size:0.73rem;color:var(--textdim);line-height:1.8; }
+  .thresh-label .sub { font-size:0.85em; }
+
+  .morse-ref { display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:0.7rem; }
+  .ref-item { background:var(--bg);border:1px solid var(--border);padding:4px 6px;border-radius:3px;
+    display:flex;justify-content:space-between;gap:4px; }
+  .ref-char { color:var(--green);font-weight:bold; }
+  .ref-code { color:var(--amber);letter-spacing:1px; }
 </style>
 </head>
 <body>
-
 <div id="flash-overlay"></div>
 
 <header>
   <div class="logo">SOS-<span>Morse</span>Code</div>
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="lang-nl" onclick="setLang('nl')">NL</button>
-    <button class="lang-btn" id="lang-it" onclick="setLang('it')">IT</button>
+  <div class="header-center">
+    OFFLINE READY<br>
+    <span style="color:var(--amber);font-style:italic;">OFFLINE PRONTO</span>
   </div>
   <div class="status-dot"></div>
 </header>
@@ -667,36 +197,31 @@
 <div class="tabs">
   <button class="tab active" onclick="switchTab('send')">
     <span class="tab-icon">&#128225;</span>
-    <span id="tab-send-nl">ZENDEN</span>
-    <span class="tab-it" id="tab-send-it">TRASMETTI</span>
+    ZENDEN<span class="sub">TRASMETTI</span>
   </button>
   <button class="tab" onclick="switchTab('recv')">
     <span class="tab-icon">&#128251;</span>
-    <span id="tab-recv-nl">ONTVANGEN</span>
-    <span class="tab-it" id="tab-recv-it">RICEVI</span>
+    ONTVANGEN<span class="sub">RICEVI</span>
   </button>
   <button class="tab" onclick="switchTab('ref')">
     <span class="tab-icon">&#128203;</span>
-    <span id="tab-ref-nl">CODES</span>
-    <span class="tab-it" id="tab-ref-it">CODICI</span>
+    CODES<span class="sub">CODICI</span>
   </button>
 </div>
 
 <main>
 
-<!-- ZENDEN / TRASMETTI TAB -->
+<!-- ZENDEN / TRASMETTI -->
 <div id="tab-send" class="tab-content active">
 
   <div class="panel">
     <div class="panel-title">
-      &#9654; <span id="t-input-nl">BERICHT INVOEREN</span>
-      <span class="it-sub" id="t-input-it">INSERISCI MESSAGGIO</span>
+      &#9654; BERICHT INVOEREN<span class="sub">INSERISCI MESSAGGIO</span>
     </div>
-    <textarea id="send-input" placeholder="Typ hier je bericht... / Scrivi il tuo messaggio..." maxlength="200" oninput="updateMorsePreview()"></textarea>
+    <textarea id="send-input" placeholder="Typ je bericht... / Scrivi il messaggio..." maxlength="200" oninput="updateMorsePreview()"></textarea>
     <div style="margin-top:8px;">
       <div class="panel-title" style="margin-bottom:6px;">
-        <span id="t-preview-nl">MORSE VOORBEELD</span>
-        <span class="it-sub" id="t-preview-it">ANTEPRIMA MORSE</span>
+        MORSE VOORBEELD<span class="sub">ANTEPRIMA MORSE</span>
       </div>
       <div class="morse-preview" id="morse-preview">...</div>
     </div>
@@ -704,37 +229,31 @@
 
   <div class="panel">
     <div class="panel-title">
-      &#9654; <span id="t-sendvia-nl">VERZEND VIA</span>
-      <span class="it-sub" id="t-sendvia-it">TRASMETTI TRAMITE</span>
+      &#9654; VERZEND VIA<span class="sub">TRASMETTI TRAMITE</span>
     </div>
     <div class="mode-row">
       <button class="mode-btn active" id="mode-sound" onclick="toggleMode('sound')">
-        <span>&#128266;</span>
-        <span id="m-sound-nl">GELUID</span>
-        <span class="it" id="m-sound-it">SUONO</span>
+        <span class="icon">&#128266;</span>
+        GELUID<span class="sub">SUONO</span>
       </button>
       <button class="mode-btn active" id="mode-light" onclick="toggleMode('light')">
-        <span>&#128161;</span>
-        <span id="m-light-nl">LICHT</span>
-        <span class="it" id="m-light-it">LUCE</span>
+        <span class="icon">&#128161;</span>
+        LICHT<span class="sub">LUCE</span>
       </button>
     </div>
 
     <div class="speed-row">
       <span class="speed-label">
-        <span id="t-speed-nl">SNELHEID</span>
-        <span class="it" id="t-speed-it">VELOCITA'</span>
+        SNELHEID<span class="sub">VELOCITA'</span>
       </span>
       <input type="range" id="speed-slider" min="1" max="5" value="2" oninput="updateSpeed()">
-      <span class="speed-val" id="speed-val">
-        <span id="speed-val-nl">LANGZAAM</span>
-        <span class="it" id="speed-val-it">LENTO</span>
+      <span class="speed-val" id="speed-val-display">
+        LANGZAAM<span class="sub" id="speed-val-it">LENTO</span>
       </span>
     </div>
 
     <button class="btn-primary" id="send-btn" onclick="startSending()">
-      &#9654; <span id="t-send-nl">VERZENDEN</span>
-      <span class="it" id="t-send-it">TRASMETTI</span>
+      &#9654; VERZENDEN<span class="sub">TRASMETTI</span>
     </button>
     <div class="progress-bar" id="progress-bar">
       <div class="progress-fill" id="progress-fill"></div>
@@ -743,54 +262,47 @@
 
     <div style="margin-top:8px;">
       <button class="btn-danger" id="stop-btn" onclick="stopSending()" style="display:none;">
-        &#9632; <span id="t-stop-nl">STOP VERZENDEN</span>
-        <span class="it" id="t-stop-it">FERMA TRASMISSIONE</span>
+        &#9632; STOP VERZENDEN<span class="sub">FERMA TRASMISSIONE</span>
       </button>
     </div>
   </div>
 
   <div class="panel">
     <div class="panel-title">
-      &#9654; <span id="t-sos-nl">NOODSIGNAAL</span>
-      <span class="it-sub" id="t-sos-it">SEGNALE DI EMERGENZA</span>
+      &#9654; NOODSIGNAAL<span class="sub">SEGNALE DI EMERGENZA</span>
     </div>
     <button class="sos-btn" id="sos-btn">
-      ... --- ...&nbsp;&nbsp;SOS&nbsp;&nbsp;... --- ...
-      <span class="it" id="t-soshold-it">Tieni premuto per attivare / lasciar andare per fermare</span>
+      ... --- ...&nbsp;SOS&nbsp;... --- ...<span class="sub">Houd ingedrukt / Tieni premuto</span>
     </button>
-    <div style="margin-top:8px; font-size:0.7rem; color:var(--textdim); text-align:center; line-height:1.8;">
-      <span id="t-soshelp-nl">Houdt SOS ingedrukt &mdash; laat los om te stoppen</span><br>
-      <span style="color:var(--amber);font-style:italic;" id="t-soshelp-it">Tieni premuto SOS &mdash; lascia per fermare</span>
+    <div style="margin-top:8px;font-size:0.7rem;color:var(--textdim);text-align:center;line-height:2.2;">
+      Houd ingedrukt &mdash; laat los om te stoppen<br>
+      <span style="color:var(--amber);font-style:italic;">Tieni premuto &mdash; lascia per fermare</span>
     </div>
   </div>
 
 </div>
 
-<!-- ONTVANGEN / RICEVI TAB -->
+<!-- ONTVANGEN / RICEVI -->
 <div id="tab-recv" class="tab-content">
 
   <div class="panel">
     <div class="panel-title">
-      &#9654; <span id="t-recvvia-nl">ONTVANGEN VIA</span>
-      <span class="it-sub" id="t-recvvia-it">RICEVI TRAMITE</span>
+      &#9654; ONTVANGEN VIA<span class="sub">RICEVI TRAMITE</span>
     </div>
     <div class="mode-row">
       <button class="mode-btn" id="recv-sound-btn" onclick="startAudioRecv()">
-        <span>&#127908;</span>
-        <span id="rm-sound-nl">GELUID</span>
-        <span class="it" id="rm-sound-it">SUONO/MIC</span>
+        <span class="icon">&#127908;</span>
+        GELUID<span class="sub">SUONO / MIC</span>
       </button>
       <button class="mode-btn" id="recv-camera-btn" onclick="startCameraRecv()">
-        <span>&#128247;</span>
-        <span id="rm-cam-nl">LICHT/CAM</span>
-        <span class="it" id="rm-cam-it">LUCE/CAM</span>
+        <span class="icon">&#128247;</span>
+        LICHT / CAM<span class="sub">LUCE / CAM</span>
       </button>
     </div>
 
     <div class="thresh-row">
-      <span>
-        <span id="t-sens-nl">GEVOELIGHEID</span>
-        <span class="it" id="t-sens-it">SENSIBILITA'</span>
+      <span class="thresh-label">
+        GEVOELIGHEID<span class="sub">SENSIBILITA'</span>
       </span>
       <input type="range" id="thresh-slider" min="10" max="90" value="40" style="flex:1;">
       <span id="thresh-val" style="color:var(--green);min-width:30px;text-align:right;">40</span>
@@ -799,8 +311,7 @@
     <div class="meter-bar"><div class="meter-fill" id="meter-fill"></div></div>
 
     <button class="btn-danger" id="recv-stop-btn" onclick="stopRecv()" style="display:none;">
-      &#9632; <span id="t-recvstop-nl">STOP ONTVANGEN</span>
-      <span class="it" id="t-recvstop-it">FERMA RICEZIONE</span>
+      &#9632; STOP ONTVANGEN<span class="sub">FERMA RICEZIONE</span>
     </button>
   </div>
 
@@ -808,41 +319,33 @@
 
   <div class="panel">
     <div class="panel-title">
-      &#9654; <span id="t-signal-nl">ONTVANGEN SIGNAAL</span>
-      <span class="it-sub" id="t-signal-it">SEGNALE RICEVUTO</span>
+      &#9654; ONTVANGEN SIGNAAL<span class="sub">SEGNALE RICEVUTO</span>
     </div>
     <div class="recv-display">
       <div class="recv-morse" id="recv-morse-display">---</div>
-      <div class="recv-text" id="recv-text-display">
-        <span id="t-waiting-nl">Wacht op signaal...</span>
-      </div>
+      <div class="recv-text" id="recv-text-display">Wacht op signaal... / In attesa...</div>
     </div>
     <button class="btn-secondary" onclick="addRecvToLog()">
-      + <span id="t-addlog-nl">VOEG TOE AAN GESPREK</span>
-      <span class="it" id="t-addlog-it">AGGIUNGI ALLA CONVERSAZIONE</span>
+      + VOEG TOE AAN GESPREK<span class="sub">AGGIUNGI ALLA CONVERSAZIONE</span>
     </button>
   </div>
 
 </div>
 
-<!-- REFERENTIE / CODICI TAB -->
+<!-- CODES / CODICI -->
 <div id="tab-ref" class="tab-content">
   <div class="panel">
     <div class="panel-title">
-      &#9654; <span id="t-alphabet-nl">MORSE ALFABET</span>
-      <span class="it-sub" id="t-alphabet-it">ALFABETO MORSE</span>
+      &#9654; MORSE ALFABET<span class="sub">ALFABETO MORSE</span>
     </div>
     <div class="morse-ref" id="morse-ref"></div>
   </div>
   <div class="panel">
-    <div class="panel-title">
-      &#9654; <span id="t-legend-nl">LEGENDA</span>
-      <span class="it-sub" id="t-legend-it">LEGENDA</span>
-    </div>
-    <div style="font-size:0.78rem;color:var(--textdim);line-height:2.2;">
-      <span style="color:var(--amber);">.</span> = <span id="t-dit-nl">kort signaal</span> &nbsp;<span style="color:var(--amber);font-style:italic;" id="t-dit-it">(segnale breve / DIT)</span><br>
-      <span style="color:var(--amber);">-</span> = <span id="t-dah-nl">lang signaal</span> &nbsp;<span style="color:var(--amber);font-style:italic;" id="t-dah-it">(segnale lungo / DAH)</span><br>
-      <span style="color:var(--amber);">/</span> = <span id="t-word-nl">woordscheiding</span> &nbsp;<span style="color:var(--amber);font-style:italic;" id="t-word-it">(separazione parola)</span><br><br>
+    <div class="panel-title">&#9654; LEGENDA</div>
+    <div style="font-size:0.78rem;color:var(--textdim);line-height:2.6;">
+      <span style="color:var(--amber);">.</span> = kort signaal &nbsp;<span style="color:var(--amber);font-style:italic;">/ segnale breve (DIT)</span><br>
+      <span style="color:var(--amber);">-</span> = lang signaal &nbsp;<span style="color:var(--amber);font-style:italic;">/ segnale lungo (DAH)</span><br>
+      <span style="color:var(--amber);">/</span> = woordscheiding &nbsp;<span style="color:var(--amber);font-style:italic;">/ separazione parola</span><br><br>
       <span style="color:var(--green);">SOS = ... --- ...</span>
     </div>
   </div>
@@ -852,18 +355,15 @@
 <div class="log-container">
   <div class="log-header">
     <span class="log-title">
-      <span id="t-log-nl">GESPREKLOG</span>
-      <span class="it" id="t-log-it">REGISTRO CONVERSAZIONE</span>
+      GESPREKLOG<span class="sub">REGISTRO CONVERSAZIONE</span>
     </span>
     <button class="log-clear" onclick="clearLog()">
-      <span id="t-clear-nl">WISSEN</span>
-      <span class="it" id="t-clear-it">CANCELLA</span>
+      WISSEN<span class="sub">CANCELLA</span>
     </button>
   </div>
   <div class="log-messages" id="log-messages">
     <div class="log-empty" id="log-empty">
-      <span id="t-empty-nl">Geen berichten. Begin met zenden of ontvangen.</span><br>
-      <span class="it" id="t-empty-it">Nessun messaggio. Inizia a trasmettere o ricevere.</span>
+      Geen berichten. Begin met zenden of ontvangen.<span class="sub">Nessun messaggio. Inizia a trasmettere o ricevere.</span>
     </div>
   </div>
 </div>
@@ -871,7 +371,6 @@
 </main>
 
 <script>
-// ==================== MORSE CODE TABLE ====================
 const MORSE = {
   'A':'.-','B':'-...','C':'-.-.','D':'-..','E':'.','F':'..-.','G':'--.','H':'....','I':'..','J':'.---',
   'K':'-.-','L':'.-..','M':'--','N':'-.','O':'---','P':'.--.','Q':'--.-','R':'.-.','S':'...','T':'-',
@@ -881,87 +380,55 @@ const MORSE = {
 };
 
 const MORSE_REV = {};
-for (const [k,v] of Object.entries(MORSE)) MORSE_REV[v] = k;
+for (var k in MORSE) MORSE_REV[MORSE[k]] = k;
 
 function textToMorse(text) {
-  return text.toUpperCase().split('').map(c => {
-    if (c === ' ') return '/';
-    return MORSE[c] || '';
-  }).filter(Boolean).join(' ');
-}
-
-// ==================== TAAL / LINGUA ====================
-let currentLang = 'nl';
-
-const SPEED_LABELS = {
-  nl: {1:'TRAAG', 2:'LANGZAAM', 3:'NORMAAL', 4:'SNEL', 5:'EXPERT'},
-  it: {1:'LENTISSIMO', 2:'LENTO', 3:'NORMALE', 4:'VELOCE', 5:'ESPERTO'}
-};
-
-function setLang(lang) {
-  currentLang = lang;
-  document.getElementById('lang-nl').classList.toggle('active', lang === 'nl');
-  document.getElementById('lang-it').classList.toggle('active', lang === 'it');
-
-  // Alle .nl en .it spans tonen/verbergen
-  document.querySelectorAll('[id$="-nl"], .nl').forEach(el => {
-    el.style.display = lang === 'nl' ? '' : 'none';
-  });
-  document.querySelectorAll('[id$="-it"], .it-sub, .tab-it').forEach(el => {
-    el.style.display = lang === 'it' ? '' : 'none';
-  });
-
-  // Bij IT: italic amber labels altijd tonen in legenda
-  if (lang === 'it') {
-    document.querySelectorAll('.it').forEach(el => el.style.display = '');
+  var result = [];
+  text = text.toUpperCase();
+  for (var i = 0; i < text.length; i++) {
+    var c = text[i];
+    if (c === ' ') result.push('/');
+    else if (MORSE[c]) result.push(MORSE[c]);
   }
-
-  updateSpeed();
-  updateWaitingText();
+  return result.join(' ');
 }
 
-function updateWaitingText() {
-  const el = document.getElementById('recv-text-display');
-  if (el.dataset.hasContent !== 'true') {
-    el.textContent = currentLang === 'nl' ? 'Wacht op signaal...' : 'In attesa del segnale...';
-  }
-}
+var modeSoundActive = true;
+var modeLightActive = true;
+var speedLevel = 2;
+var isSending = false;
+var sendAbort = false;
+var isRecvAudio = false;
+var isRecvCamera = false;
+var audioCtx = null;
+var analyserNode = null;
+var micStream = null;
+var camStream = null;
+var meterRAF = null;
+var recvRAF = null;
 
-// ==================== UI STATE ====================
-let modeSoundActive = true;
-let modeLightActive = true;
-let speedLevel = 2;
-let isSending = false;
-let sendAbort = false;
-let isRecvAudio = false;
-let isRecvCamera = false;
-let audioCtx = null;
-let analyserNode = null;
-let micStream = null;
-let camStream = null;
-let meterRAF = null;
-let recvRAF = null;
-
-const SPEED_MAP = {1: 200, 2: 130, 3: 80, 4: 50, 5: 30};
+var SPEED_MAP = {1:200, 2:130, 3:80, 4:50, 5:30};
+var SPEED_NL   = {1:'TRAAG', 2:'LANGZAAM', 3:'NORMAAL', 4:'SNEL', 5:'EXPERT'};
+var SPEED_IT   = {1:'LENTISSIMO', 2:'LENTO', 3:'NORMALE', 4:'VELOCE', 5:'ESPERTO'};
 
 function getUnit() { return SPEED_MAP[speedLevel]; }
 
-// ==================== TABS ====================
 function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  var contents = document.querySelectorAll('.tab-content');
+  for (var i = 0; i < contents.length; i++) contents[i].classList.remove('active');
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
   document.getElementById('tab-' + tab).classList.add('active');
-  document.querySelectorAll('.tab')[['send','recv','ref'].indexOf(tab)].classList.add('active');
+  var order = ['send','recv','ref'];
+  tabs[order.indexOf(tab)].classList.add('active');
 }
 
-// ==================== MORSE PREVIEW ====================
 function updateMorsePreview() {
-  const text = document.getElementById('send-input').value;
-  const morse = text ? textToMorse(text) : '...';
+  var text = document.getElementById('send-input').value;
+  var morse = text ? textToMorse(text) : '...';
   document.getElementById('morse-preview').textContent = morse || '...';
 }
 
-// ==================== MODE TOGGLE ====================
 function toggleMode(mode) {
   if (mode === 'sound') {
     modeSoundActive = !modeSoundActive;
@@ -974,13 +441,11 @@ function toggleMode(mode) {
 
 function updateSpeed() {
   speedLevel = parseInt(document.getElementById('speed-slider').value);
-  const nlEl = document.getElementById('speed-val-nl');
-  const itEl = document.getElementById('speed-val-it');
-  if (nlEl) nlEl.textContent = SPEED_LABELS.nl[speedLevel];
-  if (itEl) itEl.textContent = SPEED_LABELS.it[speedLevel];
+  var el = document.getElementById('speed-val-display');
+  el.childNodes[0].nodeValue = SPEED_NL[speedLevel];
+  document.getElementById('speed-val-it').textContent = SPEED_IT[speedLevel];
 }
 
-// ==================== AUDIO CONTEXT ====================
 function getAudioCtx() {
   if (!audioCtx || audioCtx.state === 'closed') {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -989,17 +454,14 @@ function getAudioCtx() {
   return audioCtx;
 }
 
-// ==================== SEND MORSE ====================
 function playTone(duration) {
-  return new Promise(resolve => {
+  return new Promise(function(resolve) {
     if (!modeSoundActive) { setTimeout(resolve, duration); return; }
-    const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.frequency.value = 700;
-    osc.type = 'sine';
+    var ctx = getAudioCtx();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 700; osc.type = 'sine';
     gain.gain.setValueAtTime(0, ctx.currentTime);
     gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 0.005);
     gain.gain.linearRampToValueAtTime(0.5, ctx.currentTime + duration/1000 - 0.005);
@@ -1012,98 +474,84 @@ function playTone(duration) {
 
 function flashLight(duration) {
   if (!modeLightActive) return Promise.resolve();
-  return new Promise(resolve => {
+  return new Promise(function(resolve) {
     document.getElementById('flash-overlay').classList.add('on');
-    setTimeout(() => {
+    setTimeout(function() {
       document.getElementById('flash-overlay').classList.remove('on');
       resolve();
     }, duration);
   });
 }
 
-function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+function sleep(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
 
-async function sendMorseString(morseStr) {
-  const unit = getUnit();
-  const dit = unit;
-  const dah = unit * 3;
-  const symbolGap = unit;
-  const letterGap = unit * 3;
-  const wordGap = unit * 7;
+function sendMorseString(morseStr) {
+  var unit = getUnit();
+  var dit = unit, dah = unit*3, symGap = unit, letGap = unit*3, wordGap = unit*7;
+  var tokens = morseStr.split(' ');
+  var total = tokens.length;
+  var i = 0;
 
-  const tokens = morseStr.split(' ');
-  const total = tokens.length;
-
-  for (let i = 0; i < tokens.length; i++) {
-    if (sendAbort) break;
-    const token = tokens[i];
-    const pct = Math.round((i / total) * 100);
+  function next() {
+    if (sendAbort || i >= tokens.length) {
+      document.getElementById('progress-fill').style.width = '100%';
+      return Promise.resolve();
+    }
+    var token = tokens[i];
+    var pct = Math.round((i / total) * 100);
     document.getElementById('progress-fill').style.width = pct + '%';
+    i++;
 
     if (token === '/') {
-      document.getElementById('current-char').textContent =
-        currentLang === 'nl' ? '[SPATIE]' : '[SPAZIO]';
-      await sleep(wordGap);
-      continue;
+      document.getElementById('current-char').textContent = '[SPATIE / SPAZIO]';
+      return sleep(wordGap).then(next);
     }
 
-    const char = MORSE_REV[token] || '?';
-    document.getElementById('current-char').textContent =
-      (currentLang === 'nl' ? 'Verzendt: ' : 'Trasmette: ') + char + ' (' + token + ')';
+    var char = MORSE_REV[token] || '?';
+    document.getElementById('current-char').textContent = 'Verzendt/Trasmette: ' + char + ' (' + token + ')';
 
-    for (let j = 0; j < token.length; j++) {
-      if (sendAbort) break;
-      const sym = token[j];
-      const dur = sym === '.' ? dit : dah;
-      await Promise.all([playTone(dur), flashLight(dur)]);
-      if (j < token.length - 1) await sleep(symbolGap);
+    var j = 0;
+    function nextSym() {
+      if (sendAbort || j >= token.length) {
+        var gap = (i < tokens.length && tokens[i] !== '/') ? letGap : 0;
+        return sleep(gap).then(next);
+      }
+      var sym = token[j]; j++;
+      var dur = sym === '.' ? dit : dah;
+      return Promise.all([playTone(dur), flashLight(dur)]).then(function() {
+        return j < token.length ? sleep(symGap).then(nextSym) : nextSym();
+      });
     }
-
-    if (i < tokens.length - 1 && tokens[i+1] !== '/') {
-      await sleep(letterGap);
-    }
+    return nextSym();
   }
-
-  document.getElementById('progress-fill').style.width = '100%';
+  return next();
 }
 
-async function startSending() {
-  const text = document.getElementById('send-input').value.trim();
-  if (!text) {
-    alert(currentLang === 'nl' ? 'Voer eerst een bericht in.' : 'Inserisci prima un messaggio.');
-    return;
-  }
-  if (!modeSoundActive && !modeLightActive) {
-    alert(currentLang === 'nl'
-      ? 'Kies minimaal een verzendmodus: Geluid of Licht.'
-      : 'Scegli almeno una modalita: Suono o Luce.');
-    return;
-  }
+function startSending() {
+  var text = document.getElementById('send-input').value.trim();
+  if (!text) { alert('Voer een bericht in / Inserisci un messaggio'); return; }
+  if (!modeSoundActive && !modeLightActive) { alert('Kies Geluid of Licht / Scegli Suono o Luce'); return; }
   if (isSending) return;
 
-  const morse = textToMorse(text);
-  isSending = true;
-  sendAbort = false;
-
+  var morse = textToMorse(text);
+  isSending = true; sendAbort = false;
   document.getElementById('send-btn').style.display = 'none';
   document.getElementById('stop-btn').style.display = 'block';
   document.getElementById('progress-bar').style.display = 'block';
   document.getElementById('progress-fill').style.width = '0%';
 
-  await sendMorseString(morse);
-
-  if (!sendAbort) {
-    addToLog('sent', text, morse);
-    document.getElementById('send-input').value = '';
-    updateMorsePreview();
-  }
-
-  stopSending();
+  sendMorseString(morse).then(function() {
+    if (!sendAbort) {
+      addToLog('sent', text, morse);
+      document.getElementById('send-input').value = '';
+      updateMorsePreview();
+    }
+    stopSending();
+  });
 }
 
 function stopSending() {
-  sendAbort = true;
-  isSending = false;
+  sendAbort = true; isSending = false;
   document.getElementById('send-btn').style.display = 'block';
   document.getElementById('stop-btn').style.display = 'none';
   document.getElementById('progress-bar').style.display = 'none';
@@ -1111,235 +559,155 @@ function stopSending() {
   document.getElementById('flash-overlay').classList.remove('on');
 }
 
-// ==================== SOS ====================
-let sosActive = false;
-async function sendSOS() {
+var sosActive = false;
+function sendSOS() {
   if (sosActive) return;
-  sosActive = true;
-  isSending = true;
-  sendAbort = false;
-  const sosMorse = '... --- ...';
-  while (!sendAbort && sosActive) {
-    await sendMorseString(sosMorse);
-    if (!sendAbort) await sleep(2000);
+  sosActive = true; isSending = true; sendAbort = false;
+  function loop() {
+    if (sendAbort || !sosActive) { isSending = false; sosActive = false; return; }
+    sendMorseString('... --- ...').then(function() {
+      if (!sendAbort) sleep(2000).then(loop); else { isSending=false; sosActive=false; }
+    });
   }
-  isSending = false;
-  sosActive = false;
+  loop();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const sosBtn = document.getElementById('sos-btn');
-  sosBtn.addEventListener('touchstart', (e) => { e.preventDefault(); if (!sosActive) sendSOS(); });
-  sosBtn.addEventListener('touchend', (e) => { e.preventDefault(); sendAbort = true; sosActive = false; });
-  sosBtn.addEventListener('mousedown', () => { if (!sosActive) sendSOS(); });
-  sosBtn.addEventListener('mouseup', () => { sendAbort = true; sosActive = false; });
-});
-
-// ==================== AUDIO RECEIVING ====================
-let recvBuffer = '';
-let recvDecoded = '';
-let recvSignalOn = false;
-let recvSignalStart = 0;
-let recvLastOff = 0;
-let recvLetterTimer = null;
-let recvWordTimer = null;
+var recvBuffer = '', recvDecoded = '';
+var recvSignalOn = false, recvSignalStart = 0, recvLastOff = 0;
+var recvLetterTimer = null, recvWordTimer = null;
+var DIT_MAX = 400;
 
 function getThreshold() {
-  const val = parseInt(document.getElementById('thresh-slider').value);
+  var val = parseInt(document.getElementById('thresh-slider').value);
   document.getElementById('thresh-val').textContent = val;
   return val;
 }
 
-async function startAudioRecv() {
+function startAudioRecv() {
   if (isRecvAudio) { stopRecv(); return; }
-  try {
-    const ctx = getAudioCtx();
-    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const source = ctx.createMediaStreamSource(micStream);
+  getAudioCtx();
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream) {
+    micStream = stream;
+    var ctx = getAudioCtx();
+    var source = ctx.createMediaStreamSource(stream);
     analyserNode = ctx.createAnalyser();
     analyserNode.fftSize = 256;
     source.connect(analyserNode);
-
     isRecvAudio = true;
     document.getElementById('recv-sound-btn').classList.add('active');
     document.getElementById('recv-stop-btn').style.display = 'block';
     document.getElementById('recv-morse-display').textContent = '';
-    document.getElementById('recv-text-display').textContent =
-      currentLang === 'nl' ? 'Luistert...' : 'In ascolto...';
-    document.getElementById('recv-text-display').dataset.hasContent = 'false';
-
+    document.getElementById('recv-text-display').textContent = 'Luistert... / In ascolto...';
     resetRecvState();
     runAudioDecoder();
-  } catch(e) {
-    alert((currentLang === 'nl' ? 'Microfoon toegang geweigerd: ' : 'Accesso microfono negato: ') + e.message);
-  }
+  }).catch(function(e) {
+    alert('Microfoon geweigerd / Microfono negato: ' + e.message);
+  });
 }
 
 function runAudioDecoder() {
-  const data = new Uint8Array(analyserNode.frequencyBinCount);
-
+  var data = new Uint8Array(analyserNode.frequencyBinCount);
   function tick() {
     if (!isRecvAudio) return;
     analyserNode.getByteFrequencyData(data);
-    const avg = data.reduce((a,b) => a+b, 0) / data.length;
-    const norm = Math.min(100, (avg / 128) * 100);
-
-    const meterEl = document.getElementById('meter-fill');
+    var sum = 0;
+    for (var i=0;i<data.length;i++) sum += data[i];
+    var norm = Math.min(100, (sum / data.length / 128) * 100);
+    var meterEl = document.getElementById('meter-fill');
     meterEl.style.width = norm + '%';
-
-    const threshVal = getThreshold();
-    const isSignal = norm > threshVal;
+    var isSignal = norm > getThreshold();
     meterEl.classList.toggle('active', isSignal);
-
     processSignal(isSignal);
     meterRAF = requestAnimationFrame(tick);
   }
   meterRAF = requestAnimationFrame(tick);
 }
 
-// ==================== CAMERA RECEIVING ====================
-async function startCameraRecv() {
+function startCameraRecv() {
   if (isRecvCamera) { stopRecv(); return; }
-  try {
-    camStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment', width: 320, height: 240 }
-    });
-    const video = document.getElementById('cam-preview');
-    video.srcObject = camStream;
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:320,height:240}}).then(function(stream) {
+    camStream = stream;
+    var video = document.getElementById('cam-preview');
+    video.srcObject = stream;
     video.style.display = 'block';
-
     isRecvCamera = true;
     document.getElementById('recv-camera-btn').classList.add('active');
     document.getElementById('recv-stop-btn').style.display = 'block';
     document.getElementById('recv-morse-display').textContent = '';
-    document.getElementById('recv-text-display').textContent =
-      currentLang === 'nl' ? 'Camera actief...' : 'Camera attiva...';
-    document.getElementById('recv-text-display').dataset.hasContent = 'false';
-
+    document.getElementById('recv-text-display').textContent = 'Camera actief / Camera attiva...';
     resetRecvState();
     runCameraDecoder(video);
-  } catch(e) {
-    alert((currentLang === 'nl' ? 'Camera toegang geweigerd: ' : 'Accesso fotocamera negato: ') + e.message);
-  }
+  }).catch(function(e) {
+    alert('Camera geweigerd / Fotocamera negata: ' + e.message);
+  });
 }
 
 function runCameraDecoder(video) {
-  const canvas = document.createElement('canvas');
+  var canvas = document.createElement('canvas');
   canvas.width = 80; canvas.height = 60;
-  const ctx2d = canvas.getContext('2d');
-
+  var ctx2d = canvas.getContext('2d');
   function tick() {
     if (!isRecvCamera) return;
     ctx2d.drawImage(video, 0, 0, 80, 60);
-    const imgData = ctx2d.getImageData(0, 0, 80, 60).data;
-    let total = 0;
-    for (let i = 0; i < imgData.length; i += 4) {
-      total += (imgData[i] + imgData[i+1] + imgData[i+2]) / 3;
-    }
-    const brightness = total / (imgData.length / 4);
-    const norm = Math.min(100, (brightness / 255) * 100);
-
+    var d = ctx2d.getImageData(0,0,80,60).data;
+    var total = 0;
+    for (var i=0;i<d.length;i+=4) total += (d[i]+d[i+1]+d[i+2])/3;
+    var norm = Math.min(100, (total / (d.length/4) / 255) * 100);
     document.getElementById('meter-fill').style.width = norm + '%';
-    const threshVal = getThreshold();
-    const isSignal = norm > threshVal;
+    var isSignal = norm > getThreshold();
     document.getElementById('meter-fill').classList.toggle('active', isSignal);
-
     processSignal(isSignal);
     recvRAF = requestAnimationFrame(tick);
   }
   recvRAF = requestAnimationFrame(tick);
 }
 
-// ==================== MORSE DECODER ====================
 function resetRecvState() {
-  recvBuffer = '';
-  recvDecoded = '';
-  recvSignalOn = false;
-  recvSignalStart = 0;
-  recvLastOff = 0;
-  clearTimeout(recvLetterTimer);
-  clearTimeout(recvWordTimer);
+  recvBuffer = ''; recvDecoded = '';
+  recvSignalOn = false; recvSignalStart = 0; recvLastOff = 0;
+  clearTimeout(recvLetterTimer); clearTimeout(recvWordTimer);
 }
 
-const DIT_MAX = 400;
-
 function processSignal(isOn) {
-  const now = Date.now();
-
+  var now = Date.now();
   if (isOn && !recvSignalOn) {
-    recvSignalOn = true;
-    recvSignalStart = now;
-    clearTimeout(recvLetterTimer);
-    clearTimeout(recvWordTimer);
-
+    recvSignalOn = true; recvSignalStart = now;
+    clearTimeout(recvLetterTimer); clearTimeout(recvWordTimer);
     if (recvLastOff > 0) {
-      const gap = now - recvLastOff;
+      var gap = now - recvLastOff;
       if (gap > DIT_MAX * 5) {
-        if (recvBuffer) {
-          const ch = MORSE_REV[recvBuffer] || '?';
-          recvDecoded += ch;
-          recvBuffer = '';
-        }
-        recvDecoded += ' ';
-        updateRecvDisplay();
+        if (recvBuffer) { recvDecoded += (MORSE_REV[recvBuffer]||'?'); recvBuffer = ''; }
+        recvDecoded += ' '; updateRecvDisplay();
       } else if (gap > DIT_MAX * 1.5) {
-        if (recvBuffer) {
-          const ch = MORSE_REV[recvBuffer] || '?';
-          recvDecoded += ch;
-          recvBuffer = '';
-          updateRecvDisplay();
-        }
+        if (recvBuffer) { recvDecoded += (MORSE_REV[recvBuffer]||'?'); recvBuffer = ''; updateRecvDisplay(); }
       }
     }
-
   } else if (!isOn && recvSignalOn) {
     recvSignalOn = false;
-    const dur = now - recvSignalStart;
-    recvLastOff = now;
-
-    const sym = dur > DIT_MAX ? '-' : '.';
-    recvBuffer += sym;
+    var dur = now - recvSignalStart; recvLastOff = now;
+    recvBuffer += dur > DIT_MAX ? '-' : '.';
     updateRecvDisplay();
-
-    recvLetterTimer = setTimeout(() => {
-      if (recvBuffer) {
-        const ch = MORSE_REV[recvBuffer] || '?';
-        recvDecoded += ch;
-        recvBuffer = '';
-        updateRecvDisplay();
-      }
+    recvLetterTimer = setTimeout(function() {
+      if (recvBuffer) { recvDecoded += (MORSE_REV[recvBuffer]||'?'); recvBuffer = ''; updateRecvDisplay(); }
     }, DIT_MAX * 2);
-
-    recvWordTimer = setTimeout(() => {
-      if (recvDecoded && !recvDecoded.endsWith(' ')) {
-        recvDecoded += ' ';
-        updateRecvDisplay();
-      }
+    recvWordTimer = setTimeout(function() {
+      if (recvDecoded && recvDecoded[recvDecoded.length-1] !== ' ') { recvDecoded += ' '; updateRecvDisplay(); }
     }, DIT_MAX * 6);
   }
 }
 
 function updateRecvDisplay() {
-  let currentMorse = recvDecoded;
-  if (recvBuffer) currentMorse += ' [' + recvBuffer + ']';
-  document.getElementById('recv-morse-display').textContent = currentMorse || '---';
-  const textEl = document.getElementById('recv-text-display');
-  textEl.textContent = recvDecoded.trim() ||
-    (currentLang === 'nl' ? 'Wacht op signaal...' : 'In attesa del segnale...');
-  textEl.dataset.hasContent = recvDecoded.trim() ? 'true' : 'false';
+  var m = recvDecoded + (recvBuffer ? ' ['+recvBuffer+']' : '');
+  document.getElementById('recv-morse-display').textContent = m || '---';
+  document.getElementById('recv-text-display').textContent = recvDecoded.trim() || 'Wacht op signaal... / In attesa...';
 }
 
-// ==================== STOP RECEIVING ====================
 function stopRecv() {
-  isRecvAudio = false;
-  isRecvCamera = false;
-
+  isRecvAudio = false; isRecvCamera = false;
   if (meterRAF) cancelAnimationFrame(meterRAF);
   if (recvRAF) cancelAnimationFrame(recvRAF);
-
-  if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
-  if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
-
+  if (micStream) { micStream.getTracks().forEach(function(t){t.stop();}); micStream = null; }
+  if (camStream) { camStream.getTracks().forEach(function(t){t.stop();}); camStream = null; }
   document.getElementById('cam-preview').style.display = 'none';
   document.getElementById('cam-preview').srcObject = null;
   document.getElementById('recv-sound-btn').classList.remove('active');
@@ -1348,73 +716,66 @@ function stopRecv() {
   document.getElementById('meter-fill').style.width = '0%';
 }
 
-// ==================== LOG ====================
 function addRecvToLog() {
-  const text = document.getElementById('recv-text-display').textContent.trim();
-  const waiting = ['Wacht op signaal...','In attesa del segnale...','Luistert...','In ascolto...','Camera actief...','Camera attiva...'];
-  if (!text || waiting.includes(text)) return;
-  const morse = recvDecoded.trim();
-  addToLog('recv', text, morse);
-  resetRecvState();
-  updateRecvDisplay();
+  var text = document.getElementById('recv-text-display').textContent.trim();
+  var skip = ['Wacht op signaal... / In attesa...','Luistert... / In ascolto...','Camera actief / Camera attiva...'];
+  for (var i=0;i<skip.length;i++) if (text === skip[i]) return;
+  if (!text) return;
+  addToLog('recv', text, recvDecoded.trim());
+  resetRecvState(); updateRecvDisplay();
 }
 
 function addToLog(type, text, morse) {
   document.getElementById('log-empty').style.display = 'none';
-  const log = document.getElementById('log-messages');
-  const now = new Date();
-  const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-
-  const div = document.createElement('div');
-  div.className = 'msg ' + (type === 'sent' ? 'sent' : 'recv');
-
-  const iconNL = type === 'sent' ? '&#128228; VERZONDEN' : '&#128229; ONTVANGEN';
-  const iconIT = type === 'sent' ? '&#128228; TRASMESSO' : '&#128229; RICEVUTO';
-
-  div.innerHTML =
-    '<div class="msg-meta">' + iconNL + ' / ' + iconIT + ' &nbsp; ' + time + '</div>' +
-    '<div class="msg-text">' + escapeHtml(text) + '</div>' +
-    '<div class="msg-morse">' + escapeHtml(morse.substring(0, 80)) + (morse.length > 80 ? '...' : '') + '</div>';
-
+  var log = document.getElementById('log-messages');
+  var now = new Date();
+  var time = ('0'+now.getHours()).slice(-2) + ':' + ('0'+now.getMinutes()).slice(-2);
+  var div = document.createElement('div');
+  div.className = 'msg ' + type;
+  var meta = type === 'sent'
+    ? '&#128228; VERZONDEN / TRASMESSO &nbsp; ' + time
+    : '&#128229; ONTVANGEN / RICEVUTO &nbsp; ' + time;
+  div.innerHTML = '<div class="msg-meta">'+meta+'</div>' +
+    '<div class="msg-text">'+esc(text)+'</div>' +
+    '<div class="msg-morse">'+esc(morse.substring(0,80))+(morse.length>80?'...':'')+'</div>';
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
 }
 
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function clearLog() {
   document.getElementById('log-messages').innerHTML =
-    '<div class="log-empty" id="log-empty">' +
-    '<span id="t-empty-nl">Geen berichten. Begin met zenden of ontvangen.</span><br>' +
-    '<span class="it" id="t-empty-it" style="color:var(--amber);font-style:italic;">Nessun messaggio. Inizia a trasmettere o ricevere.</span>' +
-    '</div>';
-  if (currentLang === 'it') setLang('it');
+    '<div class="log-empty" id="log-empty">Geen berichten. Begin met zenden of ontvangen.<span class="sub">Nessun messaggio. Inizia a trasmettere o ricevere.</span></div>';
 }
 
-// ==================== MORSE REFERENCE ====================
 function buildRef() {
-  const container = document.getElementById('morse-ref');
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
-  chars.forEach(ch => {
-    const div = document.createElement('div');
+  var container = document.getElementById('morse-ref');
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+  for (var i=0;i<chars.length;i++) {
+    var div = document.createElement('div');
     div.className = 'ref-item';
-    div.innerHTML = '<span class="ref-char">' + ch + '</span><span class="ref-code">' + (MORSE[ch]||'') + '</span>';
+    div.innerHTML = '<span class="ref-char">'+chars[i]+'</span><span class="ref-code">'+(MORSE[chars[i]]||'')+'</span>';
     container.appendChild(div);
-  });
+  }
 }
 
-// ==================== INIT ====================
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('thresh-slider').addEventListener('input', () => {
-    document.getElementById('thresh-val').textContent = document.getElementById('thresh-slider').value;
-  });
-  updateSpeed();
-  buildRef();
-  updateMorsePreview();
-  setLang('nl'); // start in Nederlands
+document.getElementById('thresh-slider').addEventListener('change', function() {
+  document.getElementById('thresh-val').textContent = this.value;
 });
+document.getElementById('thresh-slider').addEventListener('input', function() {
+  document.getElementById('thresh-val').textContent = this.value;
+});
+
+var sosBtn = document.getElementById('sos-btn');
+sosBtn.addEventListener('touchstart', function(e){ e.preventDefault(); sendSOS(); });
+sosBtn.addEventListener('touchend', function(e){ e.preventDefault(); sendAbort=true; sosActive=false; });
+sosBtn.addEventListener('mousedown', function(){ sendSOS(); });
+sosBtn.addEventListener('mouseup', function(){ sendAbort=true; sosActive=false; });
+
+updateSpeed();
+buildRef();
+updateMorsePreview();
 </script>
 </body>
 </html>
